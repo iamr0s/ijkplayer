@@ -224,7 +224,7 @@ FF_CFLAGS="-O3 -Wall -pipe \
     -ffast-math \
     -fstrict-aliasing -Werror=strict-aliasing \
     -Wno-psabi -Wa,--noexecstack \
-    -DANDROID -DNDEBUG"
+    -DANDROID -DNDEBUG -U_FORTIFY_SOURCE -fstack-protector-all"
 
 # cause av_strlcpy crash with gcc4.7, gcc4.8
 # -fmodulo-sched -fmodulo-sched-allow-regmoves
