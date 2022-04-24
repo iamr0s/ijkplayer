@@ -44,7 +44,6 @@ jobs:
       - name: Build ijkplayer
         run: |
           export ANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}
-          cd ijkplayer-android
           ./init-android.sh
           ./init-android-openssl.sh
           cd ./android/contrib
