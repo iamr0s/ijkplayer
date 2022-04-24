@@ -1,11 +1,38 @@
-```
-@iamr0s
+- @iamr0s
 
-clone https://github.com/bilibili/ijkplayer
+- clone https://github.com/bilibili/ijkplayer
 
-修复`未使用编译器堆栈保护技术风险`
-关于`未使用编译器堆栈保护技术风险`，请查阅下文。
+- 修复【未使用编译器堆栈保护技术风险】
+
+- 修复过程
+
+ijkplayer-android/android/contrib/tools/do-compile-ffmpeg.sh
+
+原
 ```
+{
+FF_CFLAGS="-O3 -Wall -pipe
+-std=c99
+-ffast-math
+-fstrict-aliasing -Werror=strict-aliasing
+-Wno-psabi -Wa,--noexecstack
+-DANDROID -DNDEBUG"
+}
+```
+
+修复后
+```
+{
+FF_CFLAGS="-O3 -Wall -pipe
+-std=c99
+-ffast-math
+-fstrict-aliasing -Werror=strict-aliasing
+-Wno-psabi -Wa,--noexecstack
+-DANDROID -DNDEBUG -U_FORTIFY_SOURCE -fstack-protector-all"
+}
+```
+
+- 关于【未使用编译器堆栈保护技术风险】，请查阅下文。
 
 ### 未使用编译器堆栈保护技术风险
 
