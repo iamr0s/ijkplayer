@@ -4,34 +4,6 @@
 
 - 修复【未使用编译器堆栈保护技术风险】
 
-- 修复过程
-
-ijkplayer-android/android/contrib/tools/do-compile-ffmpeg.sh
-
-原
-```
-{
-FF_CFLAGS="-O3 -Wall -pipe
--std=c99
--ffast-math
--fstrict-aliasing -Werror=strict-aliasing
--Wno-psabi -Wa,--noexecstack
--DANDROID -DNDEBUG"
-}
-```
-
-修复后
-```
-{
-FF_CFLAGS="-O3 -Wall -pipe
--std=c99
--ffast-math
--fstrict-aliasing -Werror=strict-aliasing
--Wno-psabi -Wa,--noexecstack
--DANDROID -DNDEBUG -U_FORTIFY_SOURCE -fstack-protector-all"
-}
-```
-
 - 关于【未使用编译器堆栈保护技术风险】，请查阅下文。
 
 ### 未使用编译器堆栈保护技术风险
@@ -70,6 +42,39 @@ FF_CFLAGS="-O3 -Wall -pipe
 建议1：
 【开发者修复】使用NDK编译So时，在Android.mk文件中添加：LOCAL_CFLAGS := -Wall -O2 -U_FORTIFY_SOURCE -fstack-protector-all
 ```
+
+- 修复过程
+
+ijkplayer-android/android/contrib/tools/do-compile-ffmpeg.sh
+
+原
+```
+{
+FF_CFLAGS="-O3 -Wall -pipe
+-std=c99
+-ffast-math
+-fstrict-aliasing -Werror=strict-aliasing
+-Wno-psabi -Wa,--noexecstack
+-DANDROID -DNDEBUG"
+}
+```
+
+修复后
+```
+{
+FF_CFLAGS="-O3 -Wall -pipe
+-std=c99
+-ffast-math
+-fstrict-aliasing -Werror=strict-aliasing
+-Wno-psabi -Wa,--noexecstack
+-DANDROID -DNDEBUG -U_FORTIFY_SOURCE -fstack-protector-all"
+}
+```
+
+- 构建结果
+
+本次构建利用`Github Actions`完成，文件存放于`Github Actions Artifacts`。
+https://github.com/iamr0s/ijkplayer/actions/runs/2216212078
 
 # ijkplayer
 
