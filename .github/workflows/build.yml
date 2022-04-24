@@ -60,15 +60,14 @@ jobs:
       - name: ZIP ijkplayer
         run: |
           ls
-          cd ijkplayer-android
           cd android
           zip -r ijkplayer.zip ./ijkplayer/
-          
+
       - name: Upload ZIP
         uses: actions/upload-artifact@v1
         with:
           name: ijkplayer
-          path: ./ijkplayer-android/android/ijkplayer.zip
+          path: ./android/ijkplayer.zip
 
       - name: Setup Debug Session
         uses: csexton/debugger-action@master
